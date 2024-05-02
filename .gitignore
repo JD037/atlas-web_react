@@ -89,7 +89,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+
 
 # Gatsby files
 .cache/
@@ -132,11 +132,12 @@ dist
 # Node modules
 node_modules/
 
-# Dist directory
-dist/
+# Ignore everything in the dist folder
+dist/*
 
-# Specific build output to ignore
-dist/main.js
+# Except for index.html
+!dist/index.html
+
 
 # Environment files
 .env
