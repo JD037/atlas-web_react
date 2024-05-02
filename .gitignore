@@ -128,3 +128,21 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Node modules
+node_modules/
+
+# Dist directory
+dist/
+
+# Specific build output to ignore
+dist/main.js
+
+# Environment files
+.env
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
