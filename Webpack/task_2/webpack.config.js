@@ -1,5 +1,4 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -15,19 +14,26 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        loader: 'url-loader',
-        options: {
-          limit: 8192,
-          name: '[name].[ext]',
-          outputPath: 'assets'
-        }
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+              },
+              optipng: {
+                optimizationLevel: 5,
+              },
+              pngquant: {
+                quality: [0.65, 0.90],
+                speed: 4
+              }
+            }
+          }
+        ]
       }
     ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
-    })
-  ]
+  }
 };
