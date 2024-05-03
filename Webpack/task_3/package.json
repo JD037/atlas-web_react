@@ -4,11 +4,11 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "webpack server",
+    "start-dev": "webpack-dev-server --open",
     "build": "webpack"
   },
   "keywords": [],
-  "author": "",
+  "author": "josh d",
   "license": "ISC",
   "description": "",
   "devDependencies": {
