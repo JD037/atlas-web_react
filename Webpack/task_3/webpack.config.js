@@ -3,43 +3,41 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development', // Set mode to development to enable dev specific features
+  mode: 'development',
   entry: {
-    header: './modules/header/header.js', // Entry point for the header module
-    body: './modules/body/body.js',       // Entry point for the body module
-    footer: './modules/footer/footer.js'  // Entry point for the footer module
+    header: './modules/header/header.js',
+    body: './modules/body/body.js',
+    footer: './modules/footer/footer.js'
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'public') // Bundles are output to the public directory
+    path: path.resolve(__dirname, 'public')
   },
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'), // Serving static files from public
-    },
-    compress: true,  // Enable gzip compression for everything served
-    port: 8564,      // Server runs on port 8564
-    open: true       // Automatically open the browser when server starts
+    contentBase: path.join(__dirname, 'public'),  // Using deprecated contentBase
+    compress: true,
+    port: 8564,
+    open: true
   },
   module: {
     rules: [
       {
-        test: /\.css$/,                       // Apply rules for CSS files
-        use: ['style-loader', 'css-loader']   // Use style-loader and css-loader for CSS files
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(),                // Clean the output directory before build
-    new HtmlWebpackPlugin({                  // Simplifies creation of HTML files to serve webpack bundles
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
       title: 'Webpack Project',
-      template: path.join(__dirname, 'src', 'index.html') // Path to the template file
+      template: 'src/index.html'  // Ensure you have this file or create it
     })
   ],
   optimization: {
     splitChunks: {
-      chunks: 'all'  // Enables splitting of all types of chunks
+      chunks: 'all'
     }
   },
-  devtool: 'inline-source-map' // Source maps support for development mode
+  devtool: 'inline-source-map'
 };
