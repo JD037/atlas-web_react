@@ -133,7 +133,8 @@ out
 node_modules/
 
 # Ignore everything in the dist folder
-dist/*
+atlas-web_react\Webpack\task_0\dist\main.js
+atlas-web_react\Webpack\task_0\dist\main.js.LICENSE.txt
 
 # Except for index.html
 !dist/index.html
