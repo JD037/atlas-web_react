@@ -33,20 +33,32 @@ module.exports = {
         test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
-            loader: 'file-loader', // Added file-loader for images
+            loader: 'file-loader',
             options: {
-              name: '[name].[ext]', // Maintain the original file name and extension
-              outputPath: 'assets/', // Specify the directory where images will be placed
+              name: '[name].[ext]',
+              outputPath: 'assets',
             },
           },
           {
-            loader: 'image-webpack-loader', // Optimizes images
+            loader: 'image-webpack-loader',
             options: {
-              mozjpeg: { progressive: true, quality: 65 },
-              optipng: { enabled: false },
-              pngquant: { quality: '65-90', speed: 4 },
-              gifsicle: { interlaced: false },
-              webp: { quality: 75 }
+              mozjpeg: {
+                progressive: true,
+                quality: 65,
+              },
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              webp: {
+                quality: 75,
+              },
             },
           },
         ],
@@ -58,4 +70,7 @@ module.exports = {
       template: './dist/index.html',
     }),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 };

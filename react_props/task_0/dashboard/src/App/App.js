@@ -7,16 +7,14 @@ import Notifications from '../Notifications/Notifications';
 
 function App() {
   return (
-    <React.Fragment>
+    <div className="App">
       <Notifications />
-      <div className="App">
-        <Header />
-        <div className="App-body">
-          <Login />
-        </div>
-        <Footer />
+      <Header />
+      <div className="App-body">
+        <Login />
       </div>
-    </React.Fragment>
+      <Footer />
+    </div>
   );
 }
 
