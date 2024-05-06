@@ -1,0 +1,92 @@
+/* Base App styles */
+.App {
+  text-align: center;
+  margin-top: 50px; /* Add space at the top of the app */
+}
+
+/* Logo styles */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/* Animation for logo */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+/* Header styles */
+.App-header {
+  display: flex;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: #e0354b;
+  border-bottom: 3px solid #e0354b;
+}
+
+.App-header img {
+  height: 200px;
+}
+
+/* Body styles - added more padding for extra space */
+.App-body {
+  font-size: 18px;
+  padding: 40px; /* Increased padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top */
+  margin: 0 auto; /* Centers the body content */
+  max-width: 600px; /* Optional: Limits the width of the body content */
+  min-height: calc(100vh - 400px); /* Adjust the height of the body */
+}
+
+/* Form elements styling */
+.login-form {
+  display: flex;
+  justify-content: space-between; /* Ensures space between elements */
+  align-items: center;
+  width: 100%;
+  margin-bottom: 40px; /* Add margin at the bottom of the form */
+}
+
+.login-form label {
+  margin-right: 10px; /* Ensures space between label and input */
+}
+
+.login-form input {
+  flex-grow: 1;
+  margin-right: 10px; /* Space between input and button */
+}
+
+.login-form button {
+  padding: 8px 20px;
+  background-color: #0000ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #0000cc;
+}
+
+/* Footer styles */
+.App-footer {
+  font-style: italic;
+  text-align: center;
+  border-top: 3px solid #e0354b;
+  padding: 20px 0;
+}
+
+/* Keyframes for logo spin */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
