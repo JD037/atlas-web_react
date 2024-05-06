@@ -1,0 +1,18 @@
+/* task_1/dashboard/src/Notifications.css */
+
+.Notifications {
+	position: relative;
+	border: 1px dotted rgb(219, 0, 0);
+	padding: 15px;
+	margin-bottom: 15px;
+	width: 97%;
+  }
+  
+  .Notifications li[data-priority="default"] {
+	color: rgb(0, 62, 155);
+  }
+  
+  .Notifications li[data-priority="urgent"] {
+	color: rgb(219, 0, 0);
+  }
+  
