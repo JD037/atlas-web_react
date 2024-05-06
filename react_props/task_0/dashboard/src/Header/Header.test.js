@@ -1,3 +1,6 @@
+// Add tests for the Header component here
+
+
 import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
@@ -8,8 +11,8 @@ describe('App', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('renders a div with the class App-body', () => {
+  it('renders a div with the class App-header', () => {
     const wrapper = shallow(<App />);
-    expect(wrapper.find('.App-body').length).toBe(1);
+    expect(wrapper.find('.App-header').length).toBe(1);
   });
-});
+})
