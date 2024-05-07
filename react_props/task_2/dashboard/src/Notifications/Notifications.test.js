@@ -6,19 +6,22 @@ import Adapter from '@cfaester/enzyme-adapter-react-18';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Notifications', () => {
+
+import NotificationItem from './NotificationItem';
+
+describe('<Notifications />', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<Notifications />);
-    expect(wrapper.exists()).toBe(true);
+    shallow(<Notifications />);
   });
 
-  it('renders three list items', () => {
+  it('renders NotificationItem components', () => {
     const wrapper = shallow(<Notifications />);
-    expect(wrapper.find('li').length).toBe(3);
+    expect(wrapper.find(NotificationItem)).toHaveLength(3);
   });
 
-  it('renders the text "Here is the list of notifications"', () => {
+  it('renders the correct HTML for the first NotificationItem', () => {
     const wrapper = shallow(<Notifications />);
-    expect(wrapper.contains(<p>Here is the list of notifications</p>)).toBe(true);
+    const firstNotificationItem = wrapper.find(NotificationItem).first();
+    expect(firstNotificationItem.html()).toContain('<li data-notification-type="default">New course available</li>');
   });
 });
