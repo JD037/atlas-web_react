@@ -1,0 +1,41 @@
+/* Base App styles */
+.App {
+  text-align: center;
+  margin-top: 50px; /* Add space at the top of the app */
+}
+
+/* Logo styles */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/* Animation for logo */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+/* Body styles - added more padding for extra space */
+.App-body {
+  font-size: 18px;
+  padding: 40px; /* Increased padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top */
+  margin: 0 auto; /* Centers the body content */
+  max-width: 600px; /* Optional: Limits the width of the body content */
+  min-height: calc(100vh - 400px); /* Adjust the height of the body */
+}
+
+/* Keyframes for logo spin */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
