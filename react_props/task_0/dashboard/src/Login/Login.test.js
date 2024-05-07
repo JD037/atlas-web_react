@@ -1,15 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+import Login from './Login';
+import Enzyme from 'enzyme';
+import Adapter from '@cfaester/enzyme-adapter-react-18';
 
-describe('App', () => {
+Enzyme.configure({ adapter: new Adapter() });
+
+describe('Login', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.exists()).toBe(true);
+    shallow(<Login />);
   });
 
-  it('renders a div with the class App-body', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find('.App-body').length).toBe(1);
+  it('renders 2 input and 2 label tags', () => {
+    const wrapper = shallow(<Login />);
+    expect(wrapper.find('input')).toHaveLength(2);
+    expect(wrapper.find('label')).toHaveLength(2);
   });
 });

@@ -1,15 +1,18 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+import Footer from './Footer';
+import Enzyme from 'enzyme';
+import Adapter from '@cfaester/enzyme-adapter-react-18';
 
-describe('App', () => {
+Enzyme.configure({ adapter: new Adapter() });
+
+describe('Footer', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.exists()).toBe(true);
+    shallow(<Footer />);
   });
 
-it('renders a div with the class App-footer', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find('.App-footer').length).toBe(1);
+  it('renders the text "Copyright"', () => {
+    const wrapper = shallow(<Footer />);
+    expect(wrapper.text()).toContain('Copyright');
   });
 });
