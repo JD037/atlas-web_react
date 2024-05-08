@@ -1,7 +1,7 @@
 /* Base App styles */
 .App {
   text-align: center;
-  margin-top: 50px; /* Add space at the top of the app */
+  margin-top: 50px;
 }
 
 /* Logo styles */
@@ -20,14 +20,20 @@
 /* Body styles - added more padding for extra space */
 .App-body {
   font-size: 18px;
-  padding: 40px; /* Increased padding */
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Align content to the top */
-  margin: 0 auto; /* Centers the body content */
-  max-width: 600px; /* Optional: Limits the width of the body content */
-  min-height: calc(100vh - 400px); /* Adjust the height of the body */
+  justify-content: flex-start;
+  margin: 0 auto;
+  max-width: 600px;
+  min-height: calc(100vh - 400px);
+}
+
+.App-body.logged-in {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
 }
 
 /* Keyframes for logo spin */
