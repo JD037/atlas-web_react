@@ -1,0 +1,47 @@
+/* Base App styles */
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* Logo styles */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/* Animation for logo */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+/* Body styles - added more padding for extra space */
+.App-body {
+  font-size: 18px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 auto;
+  max-width: 600px;
+  min-height: calc(100vh - 400px);
+}
+
+.App-body.logged-in {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Keyframes for logo spin */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
