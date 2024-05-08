@@ -1,0 +1,12 @@
+/* Header styles */
+.App-header {
+	display: flex;
+	align-items: center;
+	font-size: calc(10px + 2vmin);
+	color: #e0354b;
+	border-bottom: 3px solid #e0354b;
+  }
+  
+  .App-header img {
+	height: 200px;
+  }
