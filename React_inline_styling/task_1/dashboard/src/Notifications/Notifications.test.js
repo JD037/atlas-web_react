@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import Notifications from './Notifications';
 import Enzyme from 'enzyme';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 Enzyme.configure({ adapter: new Adapter() });
-
 
 import NotificationItem from './NotificationItem';
 
@@ -18,7 +18,12 @@ describe('Notifications', () => {
   ];
 
   beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
     wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
   });
 
   it('renders without crashing', () => {
@@ -26,7 +31,7 @@ describe('Notifications', () => {
   });
 
   it('renders correct list items', () => {
-    expect(wrapper.find('NotificationItem')).toHaveLength(3);
+    expect(wrapper.find(NotificationItem)).toHaveLength(3);
   });
 
   it('renders the text "Here is the list of notifications"', () => {
