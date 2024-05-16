@@ -1,10 +1,33 @@
-// src/Notifications/Notifications.js
 import React from 'react';
-import './Notifications.css';
+import { StyleSheet, css } from 'aphrodite';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
 import WithLogging from '../HOC/WithLogging';
+
+const styles = StyleSheet.create({
+  notifications: {
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+    border: '1px dashed #e1354b',
+    padding: '1rem',
+    width: '25rem',
+    backgroundColor: 'white',
+    zIndex: 1,
+  },
+  menuItem: {
+    textAlign: 'right',
+    marginRight: '1rem',
+    fontWeight: 'bold',
+  },
+  defaultNotification: {
+    color: 'rgb(0, 62, 155)',
+  },
+  urgentNotification: {
+    color: 'rgb(219, 0, 0)',
+  },
+});
 
 class Notifications extends React.PureComponent {
   constructor(props) {
@@ -26,9 +49,9 @@ class Notifications extends React.PureComponent {
 
     return (
       <>
-        <div className="menuItem">Your notifications</div>
+        <div className={css(styles.menuItem)}>Your notifications</div>
         {displayDrawer && (
-          <div className="Notifications">
+          <div className={css(styles.notifications)}>
             {listNotifications.length === 0 ? (
               <NotificationItem value="No new notification for now" />
             ) : (
@@ -40,6 +63,7 @@ class Notifications extends React.PureComponent {
                   value={notification.value}
                   html={notification.html}
                   markAsRead={this.markAsRead}
+                  style={notification.type === 'urgent' ? styles.urgentNotification : styles.defaultNotification}
                 />
               ))
             )}
