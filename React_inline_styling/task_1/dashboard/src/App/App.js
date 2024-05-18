@@ -124,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;git
+export default App;
