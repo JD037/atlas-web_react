@@ -15,6 +15,15 @@ const styles = StyleSheet.create({
     width: '25rem',
     backgroundColor: 'white',
     zIndex: 1,
+    '@media (max-width: 900px)': {
+      width: '100%',
+      height: '100%',
+      top: '0',
+      right: '0',
+      border: 'none',
+      padding: '0',
+      fontSize: '20px',
+    },
   },
   menuItem: {
     textAlign: 'right',
@@ -26,6 +35,20 @@ const styles = StyleSheet.create({
   },
   urgentNotification: {
     color: 'rgb(219, 0, 0)',
+  },
+  panelOpen: {
+    width: '100%',
+    height: '100%',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    backgroundColor: 'white',
+    zIndex: 2,
+    padding: '0',
+    fontSize: '20px',
+  },
+  ul: {
+    padding: 0,
   },
 });
 
@@ -51,21 +74,22 @@ class Notifications extends React.PureComponent {
       <>
         <div className={css(styles.menuItem)}>Your notifications</div>
         {displayDrawer && (
-          <div className={css(styles.notifications)}>
+          <div className={css(styles.notifications, styles.panelOpen)}>
             {listNotifications.length === 0 ? (
               <NotificationItem value="No new notification for now" />
             ) : (
-              listNotifications.map((notification) => (
-                <NotificationItem
-                  key={notification.id}
-                  id={notification.id}
-                  type={notification.type}
-                  value={notification.value}
-                  html={notification.html}
-                  markAsRead={this.markAsRead}
-                  style={notification.type === 'urgent' ? styles.urgentNotification : styles.defaultNotification}
-                />
-              ))
+              <ul className={css(styles.ul)}>
+                {listNotifications.map((notification) => (
+                  <NotificationItem
+                    key={notification.id}
+                    id={notification.id}
+                    type={notification.type}
+                    value={notification.value}
+                    html={notification.html}
+                    markAsRead={this.markAsRead}
+                  />
+                ))}
+              </ul>
             )}
           </div>
         )}

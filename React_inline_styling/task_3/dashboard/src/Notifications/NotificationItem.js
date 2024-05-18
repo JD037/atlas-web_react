@@ -1,4 +1,3 @@
-// task_5/dashboard/src/Notifications/NotificationItem.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
@@ -10,15 +9,23 @@ const styles = StyleSheet.create({
   urgentItem: {
     color: 'rgb(219, 0, 0)',
   },
+  item: {
+    width: '100%',
+    borderBottom: '1px solid black',
+    fontSize: '20px',
+    padding: '10px 8px',
+  },
 });
 
 class NotificationItem extends React.PureComponent {
   render() {
     const { id, type, value, html, markAsRead } = this.props;
+    const style = type === 'urgent' ? styles.urgentItem : styles.defaultItem;
 
     if (html) {
       return (
         <li
+          className={css(styles.item, style)}
           data-notification-type={type}
           dangerouslySetInnerHTML={html}
           onClick={() => markAsRead(id)}
@@ -26,7 +33,11 @@ class NotificationItem extends React.PureComponent {
       );
     }
     return (
-      <li data-notification-type={type} onClick={() => markAsRead(id)}>
+      <li
+        className={css(styles.item, style)}
+        data-notification-type={type}
+        onClick={() => markAsRead(id)}
+      >
         {value}
       </li>
     );

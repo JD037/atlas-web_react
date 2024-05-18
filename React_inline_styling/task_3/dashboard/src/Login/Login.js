@@ -4,17 +4,37 @@ import { StyleSheet, css } from 'aphrodite';
 const styles = StyleSheet.create({
   loginForm: {
     display: 'flex',
-    justifyContent: 'space-between', // Ensures space between elements
-    alignItems: 'center',
+    flexDirection: 'column',
     width: '100%',
-    marginBottom: '40px', // Add margin at the bottom of the form
+    marginBottom: '40px',
   },
   label: {
-    marginRight: '10px', // Ensures space between label and input
+    marginBottom: '10px',
   },
   input: {
-    flexGrow: 1,
-    marginRight: '10px', // Space between input and button
+    marginBottom: '10px',
+  },
+  button: {
+    marginTop: '10px',
+  },
+  '@media (min-width: 900px)': {
+    loginForm: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    label: {
+      marginBottom: '0',
+      marginRight: '10px',
+    },
+    input: {
+      marginBottom: '0',
+      marginRight: '10px',
+      flexGrow: 1,
+    },
+    button: {
+      marginTop: '0',
+    },
   },
 });
 
@@ -27,7 +47,7 @@ function Login() {
         <input type="email" id="email" name="email" className={css(styles.input)} />
         <label htmlFor="password" className={css(styles.label)}>Password:</label>
         <input type="password" id="password" name="password" className={css(styles.input)} />
-        <button>OK</button>
+        <button className={css(styles.button)}>OK</button>
       </form>
     </React.Fragment>
   );
