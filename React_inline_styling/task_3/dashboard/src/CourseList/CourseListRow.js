@@ -21,9 +21,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const rowStyle = { backgroundColor: '#f5f5f5ab' };
-const headerStyle = { backgroundColor: '#deb5b545' };
-
 const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
   const rowStyle = isHeader ? styles.headerRow : styles.defaultRow;
 

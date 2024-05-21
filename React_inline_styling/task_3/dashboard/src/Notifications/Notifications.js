@@ -29,12 +29,10 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginRight: '1rem',
     fontWeight: 'bold',
-  },
-  defaultNotification: {
-    color: 'rgb(0, 62, 155)',
-  },
-  urgentNotification: {
-    color: 'rgb(219, 0, 0)',
+    '@media (max-width: 900px)': {
+      textAlign: 'center',
+      width: '100%',
+    },
   },
   panelOpen: {
     width: '100%',
@@ -49,6 +47,7 @@ const styles = StyleSheet.create({
   },
   ul: {
     padding: 0,
+    listStyle: 'none',
   },
 });
 
@@ -62,11 +61,6 @@ class Notifications extends React.PureComponent {
     console.log(`Notification ${id} has been marked as read`);
   }
 
-  shouldComponentUpdate(nextProps) {
-    const { listNotifications } = this.props;
-    return nextProps.listNotifications.length > listNotifications.length;
-  }
-
   render() {
     const { displayDrawer, listNotifications } = this.props;
 
@@ -75,6 +69,7 @@ class Notifications extends React.PureComponent {
         <div className={css(styles.menuItem)}>Your notifications</div>
         {displayDrawer && (
           <div className={css(styles.notifications, styles.panelOpen)}>
+            <button onClick={() => this.props.toggleDrawer()}>Close</button>
             {listNotifications.length === 0 ? (
               <NotificationItem value="No new notification for now" />
             ) : (
@@ -101,6 +96,7 @@ class Notifications extends React.PureComponent {
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  toggleDrawer: PropTypes.func.isRequired,
 };
 
 Notifications.defaultProps = {

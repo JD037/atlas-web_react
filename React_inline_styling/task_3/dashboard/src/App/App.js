@@ -1,5 +1,4 @@
-// src/App/App.js
-import React from 'react';
+import React, { Component } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
@@ -15,6 +14,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.state = {
+      displayDrawer: false,
+    };
   }
 
   componentDidMount() {
@@ -32,8 +35,13 @@ class App extends React.Component {
     }
   }
 
+  toggleDrawer() {
+    this.setState((prevState) => ({ displayDrawer: !prevState.displayDrawer }));
+  }
+
   render() {
     const { isLoggedIn } = this.props;
+    const { displayDrawer } = this.state;
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
       { id: 2, name: 'Webpack', credit: 20 },
@@ -48,13 +56,13 @@ class App extends React.Component {
 
     return (
       <React.Fragment>
-        <Notifications />
-        <div className="App">
+        <Notifications displayDrawer={displayDrawer} toggleDrawer={this.toggleDrawer} listNotifications={listNotifications} />
+        <div className={css(styles.app)}>
           <Header />
-          <div className={`App-body ${isLoggedIn ? 'logged-in' : 'logged-out'}`}>
+          <div className={css(styles.body, isLoggedIn ? styles.loggedIn : styles.loggedOut)}>
             {isLoggedIn ? (
               <BodySectionWithMarginBottom title="Course list">
-                <CourseList listCourses={listCourses} /> {/* Updated component */}
+                <CourseList listCourses={listCourses} />
               </BodySectionWithMarginBottom>
             ) : (
               <BodySectionWithMarginBottom title="Log in to continue">
