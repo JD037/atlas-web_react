@@ -7,10 +7,11 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../dist'),
+    clean: true,
   },
   devtool: 'inline-source-map',
   devServer: {
-    static: '../dist',
+    static: path.resolve(__dirname, '../dist'),
     hot: true,
   },
   module: {
@@ -67,7 +68,21 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './dist/index.html',
+      title: 'React App',
+      filename: 'index.html',
+      templateContent: `
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>React App</title>
+          </head>
+          <body>
+            <div id="root"></div>
+          </body>
+        </html>
+      `,
     }),
   ],
   resolve: {
