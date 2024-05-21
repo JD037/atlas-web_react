@@ -7,19 +7,16 @@ import WithLogging from '../HOC/WithLogging';
 
 const styles = StyleSheet.create({
   notifications: {
-    position: 'absolute',
-    top: '10px',
-    right: '10px',
+    position: 'fixed',
+    top: '0',
+    right: '0',
+    bottom: '0',
+    left: '0',
     border: '1px dashed #e1354b',
     padding: '1rem',
-    width: '25rem',
     backgroundColor: 'white',
     zIndex: 1,
     '@media (max-width: 900px)': {
-      width: '100%',
-      height: '100%',
-      top: '0',
-      right: '0',
       border: 'none',
       padding: '0',
       fontSize: '20px',
@@ -34,20 +31,23 @@ const styles = StyleSheet.create({
       width: '100%',
     },
   },
-  panelOpen: {
-    width: '100%',
-    height: '100%',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    backgroundColor: 'white',
-    zIndex: 2,
-    padding: '0',
-    fontSize: '20px',
+  closeBtn: {
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+    border: 'none',
+    background: 'none',
+    fontSize: '1.5rem',
+    cursor: 'pointer',
   },
   ul: {
     padding: 0,
     listStyle: 'none',
+    fontSize: '20px',
+  },
+  header: {
+    fontSize: '1.5rem',
+    marginBottom: '1rem',
   },
 });
 
@@ -68,8 +68,9 @@ class Notifications extends React.PureComponent {
       <>
         <div className={css(styles.menuItem)}>Your notifications</div>
         {displayDrawer && (
-          <div className={css(styles.notifications, styles.panelOpen)}>
-            <button onClick={() => this.props.toggleDrawer()}>Close</button>
+          <div className={css(styles.notifications)}>
+            <button className={css(styles.closeBtn)} onClick={() => this.props.toggleDrawer()}>×</button>
+            <h2 className={css(styles.header)}>Here is the list of notifications</h2>
             {listNotifications.length === 0 ? (
               <NotificationItem value="No new notification for now" />
             ) : (
