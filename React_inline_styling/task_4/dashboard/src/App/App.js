@@ -56,7 +56,12 @@ class App extends React.Component {
 
     return (
       <React.Fragment>
-        <Notifications displayDrawer={displayDrawer} toggleDrawer={this.toggleDrawer} listNotifications={listNotifications} />
+        <Notifications
+          displayDrawer={displayDrawer}
+          toggleDrawer={this.toggleDrawer}
+          listNotifications={listNotifications}
+          isLoggedIn={isLoggedIn}
+        />
         <div className={css(styles.app)}>
           <Header />
           <div className={css(styles.body, isLoggedIn ? styles.loggedIn : styles.loggedOut)}>
