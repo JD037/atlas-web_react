@@ -131,7 +131,8 @@ class Notifications extends React.PureComponent {
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
-  toggleDrawer: PropTypes.func.isRequired,
+  handleDisplayDrawer: PropTypes.func.isRequired,
+  handleHideDrawer: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
 };
 

@@ -10,16 +10,16 @@ import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBot
 import WithLogging from '../HOC/WithLogging';
 import { StyleSheet, css } from 'aphrodite';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.toggleDrawer = this.toggleDrawer.bind(this);
     this.state = {
       displayDrawer: false,
     };
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
   }
-
+  
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
   }
