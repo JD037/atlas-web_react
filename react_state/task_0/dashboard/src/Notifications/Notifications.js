@@ -139,6 +139,8 @@ Notifications.propTypes = {
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: [],
+  handleDisplayDrawer: () => {},
+  handleHideDrawer: () => {},
 };
 
 const NotificationsWithLogging = WithLogging(Notifications);

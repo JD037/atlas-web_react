@@ -36,8 +36,12 @@ class App extends React.Component {
     }
   }
 
-  toggleDrawer() {
-    this.setState((prevState) => ({ displayDrawer: !prevState.displayDrawer }));
+  handleDisplayDrawer() {
+    this.setState({ displayDrawer: true });
+  }
+
+  handleHideDrawer() {
+    this.setState({ displayDrawer: false });
   }
 
   render() {
@@ -59,7 +63,8 @@ class App extends React.Component {
       <React.Fragment>
         <Notifications
           displayDrawer={displayDrawer}
-          toggleDrawer={this.toggleDrawer}
+          handleDisplayDrawer={this.handleDisplayDrawer}
+          handleHideDrawer={this.handleHideDrawer}
           listNotifications={listNotifications}
           isLoggedIn={isLoggedIn}
         />
