@@ -87,21 +87,21 @@ class Notifications extends React.PureComponent {
   }
 
   render() {
-    const { displayDrawer, listNotifications, toggleDrawer, isLoggedIn } = this.props;
+    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer, isLoggedIn } = this.props;
 
     return (
       <>
         <div
           className={css(styles.menuItem)}
           onClick={() => {
-            if (isLoggedIn) toggleDrawer();
+            if (isLoggedIn) handleDisplayDrawer();
           }}
         >
           Your notifications
         </div>
         {displayDrawer && (
           <div className={css(styles.notifications)}>
-            <button className={css(styles.closeBtn)} onClick={() => toggleDrawer()}>
+            <button className={css(styles.closeBtn)} onClick={handleHideDrawer}>
               &times;
             </button>
             <p className={css(styles.header)}>Here is the list of notifications</p>
