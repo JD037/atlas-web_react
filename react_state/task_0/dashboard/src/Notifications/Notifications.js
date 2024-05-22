@@ -93,7 +93,7 @@ class Notifications extends React.PureComponent {
       <>
         <div
           className={css(styles.menuItem)}
-          onClick={isLoggedIn ? handleDisplayDrawer : null}
+          onClick={handleDisplayDrawer}
         >
           Your notifications
         </div>
