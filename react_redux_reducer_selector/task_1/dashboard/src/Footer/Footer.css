@@ -1,0 +1,7 @@
+/* Footer styles */
+.App-footer {
+	font-style: italic;
+	text-align: center;
+	border-top: 3px solid #e0354b;
+	padding: 20px 0;
+  }
