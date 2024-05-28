@@ -11,6 +11,7 @@ import WithLogging from '../HOC/WithLogging';
 import { StyleSheet, css } from 'aphrodite';
 import { AppContext, defaultUser, defaultLogOut } from './AppContext';
 import { connect } from 'react-redux';
+import { Map } from 'immutable';
 
 class App extends Component {
   constructor(props) {
@@ -130,8 +131,9 @@ App.defaultProps = {
 
 // mapStateToProps function
 export const mapStateToProps = (state) => {
+  console.log('State:', state.toJS());  // Log the state to see its structure
   return {
-    isLoggedIn: state.ui.isLoggedIn,
+    isLoggedIn: state.get('isUserLoggedIn'),
   };
 };
 

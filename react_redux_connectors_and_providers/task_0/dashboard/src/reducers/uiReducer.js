@@ -12,7 +12,7 @@ import {
 const initialState = Map({
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
-  user: {}
+  user: Map({}),
 });
 
 const uiReducer = (state = initialState, action) => {
