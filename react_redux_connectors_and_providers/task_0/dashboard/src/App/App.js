@@ -10,6 +10,7 @@ import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBot
 import WithLogging from '../HOC/WithLogging';
 import { StyleSheet, css } from 'aphrodite';
 import { AppContext, defaultUser, defaultLogOut } from './AppContext';
+import { connect } from 'react-redux';
 
 class App extends Component {
   constructor(props) {
@@ -127,6 +128,16 @@ App.defaultProps = {
   logOut: () => {},
 };
 
+// mapStateToProps function
+export const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.ui.isLoggedIn,
+  };
+};
+
+// Connect the component with the mapStateToProps function
+export default connect(mapStateToProps)(App);
+
 const styles = StyleSheet.create({
   app: {
     textAlign: 'center',
@@ -168,5 +179,3 @@ const styles = StyleSheet.create({
     },
   },
 });
-
-export default App;

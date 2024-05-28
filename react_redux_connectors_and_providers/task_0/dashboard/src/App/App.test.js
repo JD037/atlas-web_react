@@ -1,17 +1,28 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react';
-import App from './App';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import App, { mapStateToProps } from './App'; // Ensure mapStateToProps is correctly imported
 import { AppContext, defaultUser } from './AppContext';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
 import Enzyme from 'enzyme';
+import { fromJS } from 'immutable';
 
 Enzyme.configure({ adapter: new Adapter() });
+
+const mockStore = configureStore([]);
+let store;
 
 describe('App component', () => {
   let wrapper;
 
   beforeEach(() => {
+    store = mockStore({
+      ui: {
+        isLoggedIn: false,
+      },
+    });
     // Ensure Aphrodite has a style tag to work with
     document.head.innerHTML = '<style data-aphrodite></style>';
   });
@@ -22,45 +33,53 @@ describe('App component', () => {
     }
   });
 
+  const mountComponent = () => {
+    return mount(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+  };
+
   it('default state for displayDrawer is false', () => {
     act(() => {
-      wrapper = mount(<App />);
+      wrapper = mountComponent();
     });
     wrapper.update();
-    expect(wrapper.state('displayDrawer')).toBe(false);
+    expect(wrapper.find(App).children().instance().state.displayDrawer).toBe(false);
   });
 
   it('handleDisplayDrawer sets displayDrawer to true', () => {
     act(() => {
-      wrapper = mount(<App />);
+      wrapper = mountComponent();
     });
     wrapper.update();
     act(() => {
-      wrapper.instance().handleDisplayDrawer();
+      wrapper.find(App).children().instance().handleDisplayDrawer();
     });
     wrapper.update();
-    expect(wrapper.state('displayDrawer')).toBe(true);
+    expect(wrapper.find(App).children().instance().state.displayDrawer).toBe(true);
   });
 
   it('handleHideDrawer sets displayDrawer to false', () => {
     act(() => {
-      wrapper = mount(<App />);
+      wrapper = mountComponent();
     });
     wrapper.update();
     act(() => {
-      wrapper.instance().handleDisplayDrawer(); // First set it to true
-      wrapper.instance().handleHideDrawer(); // Then hide it
+      wrapper.find(App).children().instance().handleDisplayDrawer(); // First set it to true
+      wrapper.find(App).children().instance().handleHideDrawer(); // Then hide it
     });
     wrapper.update();
-    expect(wrapper.state('displayDrawer')).toBe(false);
+    expect(wrapper.find(App).children().instance().state.displayDrawer).toBe(false);
   });
 
   it('updates state correctly when logIn is called', () => {
     act(() => {
-      wrapper = mount(<App />);
+      wrapper = mountComponent();
     });
     wrapper.update();
-    const appInstance = wrapper.instance();
+    const appInstance = wrapper.find(App).children().instance();
 
     act(() => {
       appInstance.logIn('test@test.com', 'password');
@@ -75,10 +94,10 @@ describe('App component', () => {
 
   it('updates state correctly when logOut is called', () => {
     act(() => {
-      wrapper = mount(<App />);
+      wrapper = mountComponent();
     });
     wrapper.update();
-    const appInstance = wrapper.instance();
+    const appInstance = wrapper.find(App).children().instance();
 
     act(() => {
       appInstance.logIn('test@test.com', 'password');
@@ -93,10 +112,10 @@ describe('App component', () => {
 
   it('markNotificationAsRead works as intended', () => {
     act(() => {
-      wrapper = mount(<App />);
+      wrapper = mountComponent();
     });
     wrapper.update();
-    const appInstance = wrapper.instance();
+    const appInstance = wrapper.find(App).children().instance();
 
     const initialNotifications = [
       { id: 1, type: 'default', value: 'New course available' },
@@ -116,5 +135,21 @@ describe('App component', () => {
       { id: 1, type: 'default', value: 'New course available' },
       { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
     ]);
+  });
+});
+
+describe('mapStateToProps', () => {
+  it('should return the correct object when the state is provided', () => {
+    const state = fromJS({
+      ui: {
+        isLoggedIn: true
+      }
+    });
+
+    const expectedProps = {
+      isLoggedIn: true
+    };
+
+    expect(mapStateToProps(state.toJS())).toEqual(expectedProps);
   });
 });
