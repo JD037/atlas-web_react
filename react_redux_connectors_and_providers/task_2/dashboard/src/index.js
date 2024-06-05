@@ -1,3 +1,5 @@
+// index.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
@@ -8,7 +10,7 @@ import App from './App/App';
 import ErrorBoundary from './utils/ErrorBoundary';
 import uiReducer from './reducers/uiReducer';
 
-// Create the Redux store with Thunk middleware and Redux DevTools
+// Create the Redux store with thunk middleware
 const store = createStore(
   uiReducer,
   composeWithDevTools(applyMiddleware(thunk))
