@@ -1,18 +1,17 @@
-// reducers/uiReducer.js
-
 import { Map } from 'immutable';
 import {
   DISPLAY_NOTIFICATION_DRAWER,
   HIDE_NOTIFICATION_DRAWER,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGOUT
+  LOGOUT,
+  LOGIN
 } from '../actions/uiActionTypes';
 
 const initialState = Map({
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
-  user: Map({}), // Ensure user is also a Map if you're planning to store more info later
+  user: Map({}),
 });
 
 const uiReducer = (state = initialState, action) => {
@@ -21,12 +20,14 @@ const uiReducer = (state = initialState, action) => {
       return state.set('isNotificationDrawerVisible', true);
     case HIDE_NOTIFICATION_DRAWER:
       return state.set('isNotificationDrawerVisible', false);
+    case LOGIN:
+      return state.set('user', Map(action.user));
     case LOGIN_SUCCESS:
       return state.set('isUserLoggedIn', true);
     case LOGIN_FAILURE:
       return state.set('isUserLoggedIn', false);
     case LOGOUT:
-      return state.set('isUserLoggedIn', false);
+      return state.set('isUserLoggedIn', false).set('user', Map({}));
     default:
       return state;
   }
