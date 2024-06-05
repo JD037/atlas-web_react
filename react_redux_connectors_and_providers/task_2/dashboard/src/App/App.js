@@ -11,14 +11,12 @@ import WithLogging from '../HOC/WithLogging';
 import { StyleSheet, css } from 'aphrodite';
 import { AppContext, defaultUser, defaultLogOut } from './AppContext';
 import { connect } from 'react-redux';
-import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActions';
+import { displayNotificationDrawer, hideNotificationDrawer, loginRequest } from '../actions/uiActions';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.logIn = this.logIn.bind(this);
-    this.logOut = this.logOut.bind(this);
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.state = {
       user: defaultUser,
@@ -47,13 +45,7 @@ class App extends Component {
   }
 
   logIn(email, password) {
-    this.setState({
-      user: {
-        email,
-        password,
-        isLoggedIn: true,
-      },
-    });
+    this.props.loginRequest(email, password);
   }
 
   logOut() {
@@ -67,7 +59,7 @@ class App extends Component {
   }
 
   render() {
-    const { user, logOut, listNotifications } = this.state;
+    const { user, listNotifications } = this.state;
     const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props; // Use functions from props
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
@@ -76,7 +68,7 @@ class App extends Component {
     ];
 
     return (
-      <AppContext.Provider value={{ user, logOut }}>
+      <AppContext.Provider value={{ user, logOut: this.logOut }}>
         <React.Fragment>
           <Notifications
             displayDrawer={displayDrawer} // Use displayDrawer from props
@@ -115,6 +107,7 @@ App.propTypes = {
   displayDrawer: PropTypes.bool, // Add displayDrawer prop type
   displayNotificationDrawer: PropTypes.func.isRequired, // Add action creator prop type
   hideNotificationDrawer: PropTypes.func.isRequired, // Add action creator prop type
+  loginRequest: PropTypes.func.isRequired, // Add action creator prop type
 };
 
 App.defaultProps = {
@@ -135,6 +128,7 @@ export const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
+  loginRequest,
 };
 
 // Connect the component with the mapStateToProps and mapDispatchToProps functions

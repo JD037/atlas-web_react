@@ -1,15 +1,18 @@
-// task_1/index.js
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App/App';
 import ErrorBoundary from './utils/ErrorBoundary';
 import uiReducer from './reducers/uiReducer';
 
-// Create the Redux store
-const store = createStore(uiReducer);
+// Create the Redux store with Thunk middleware and Redux DevTools
+const store = createStore(
+  uiReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <React.StrictMode>
