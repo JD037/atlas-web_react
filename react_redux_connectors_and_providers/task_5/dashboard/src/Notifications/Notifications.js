@@ -1,9 +1,13 @@
+// src/Notifications/Notifications.js
+
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
-import NotificationItemShape from './NotificationItemShape';
+import { connect } from 'react-redux';
+import { fetchNotifications, markAsRead } from '../actions/notificationActionCreators';
 import WithLogging from '../HOC/WithLogging';
+import { Map } from 'immutable';
 
 const bounceKeyframes = {
   '0%': { transform: 'translateY(0)' },
@@ -82,15 +86,16 @@ const styles = StyleSheet.create({
 });
 
 class Notifications extends React.PureComponent {
+  componentDidMount() {
+    this.props.fetchNotifications();
+  }
+
   render() {
-    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer, markNotificationAsRead } = this.props;
+    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer, markAsRead } = this.props;
 
     return (
       <>
-        <div
-          className={css(styles.menuItem)}
-          onClick={handleDisplayDrawer}
-        >
+        <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
           Your notifications
         </div>
         {displayDrawer && (
@@ -99,18 +104,18 @@ class Notifications extends React.PureComponent {
               &times;
             </button>
             <p className={css(styles.header)}>Here is the list of notifications</p>
-            {listNotifications.length === 0 ? (
+            {listNotifications.size === 0 ? (
               <NotificationItem value="No new notification for now" />
             ) : (
               <ul className={css(styles.ul)}>
-                {listNotifications.map((notification) => (
+                {listNotifications.valueSeq().map((notification) => (
                   <NotificationItem
-                    key={notification.id}
-                    id={notification.id}
-                    type={notification.type}
-                    value={notification.value}
-                    html={notification.html}
-                    markAsRead={() => markNotificationAsRead(notification.id)}
+                    key={notification.get('id')}
+                    id={notification.get('id')}
+                    type={notification.getIn(['context', 'type'])}
+                    value={notification.getIn(['context', 'value'])}
+                    html={notification.getIn(['context', 'html'])}
+                    markAsRead={() => markAsRead(notification.get('id'))}
                   />
                 ))}
               </ul>
@@ -124,20 +129,31 @@ class Notifications extends React.PureComponent {
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  listNotifications: PropTypes.object.isRequired,
   handleDisplayDrawer: PropTypes.func.isRequired,
   handleHideDrawer: PropTypes.func.isRequired,
-  markNotificationAsRead: PropTypes.func.isRequired,
+  markAsRead: PropTypes.func.isRequired,
+  fetchNotifications: PropTypes.func.isRequired,
 };
 
 Notifications.defaultProps = {
   displayDrawer: false,
-  listNotifications: [],
+  listNotifications: Map(),
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
-  markNotificationAsRead: () => {},
+  markAsRead: () => {},
+  fetchNotifications: () => {},
+};
+
+const mapStateToProps = (state) => ({
+  listNotifications: state.notifications.get('notifications'),
+});
+
+const mapDispatchToProps = {
+  fetchNotifications,
+  markAsRead,
 };
 
 const NotificationsWithLogging = WithLogging(Notifications);
 
-export default NotificationsWithLogging;
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationsWithLogging);
