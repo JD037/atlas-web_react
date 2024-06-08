@@ -17,17 +17,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
     this.state = {
       user: defaultUser,
       logOut: this.logOut,
-      listNotifications: [
-        { id: 1, type: 'default', value: 'New course available' },
-        { id: 2, type: 'urgent', value: 'New resume available' },
-        { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
-      ],
     };
   }
 
@@ -54,14 +48,7 @@ class App extends Component {
     this.props.logout();
   }
 
-  markNotificationAsRead(id) {
-    this.setState((prevState) => ({
-      listNotifications: prevState.listNotifications.filter(notification => notification.id !== id),
-    }));
-  }
-
   render() {
-    const { listNotifications } = this.state;
     const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props;
 
     const listCourses = [
@@ -77,8 +64,6 @@ class App extends Component {
             displayDrawer={displayDrawer}
             handleDisplayDrawer={displayNotificationDrawer}
             handleHideDrawer={hideNotificationDrawer}
-            listNotifications={listNotifications}
-            markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles.app)}>
             <Header />
@@ -123,9 +108,9 @@ App.defaultProps = {
 };
 
 export const mapStateToProps = (state) => ({
-  isLoggedIn: state.get('isUserLoggedIn'),
-  userEmail: state.getIn(['user', 'email']),
-  displayDrawer: state.get('isNotificationDrawerVisible'),
+  isLoggedIn: state.ui.get('isUserLoggedIn'),
+  userEmail: state.ui.getIn(['user', 'email']),
+  displayDrawer: state.ui.get('isNotificationDrawerVisible'),
 });
 
 const mapDispatchToProps = {

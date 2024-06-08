@@ -8,11 +8,11 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App/App';
 import ErrorBoundary from './utils/ErrorBoundary';
-import uiReducer from './reducers/uiReducer';
+import rootReducer from './reducers/rootReducer';
 
 // Create the Redux store with thunk middleware
 const store = createStore(
-  uiReducer,
+  rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
 
