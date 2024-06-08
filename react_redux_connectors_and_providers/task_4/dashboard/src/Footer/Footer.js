@@ -24,10 +24,8 @@ Footer.defaultProps = {
   user: null,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.get('user'),
-  };
-};
+const mapStateToProps = (state) => ({
+  user: state.ui.get('user'),
+});
 
 export default connect(mapStateToProps)(Footer);

@@ -57,7 +57,7 @@ Header.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.get('user').toJS(),
+  user: state.ui.get('user'),
 });
 
 const mapDispatchToProps = {

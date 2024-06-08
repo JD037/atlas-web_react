@@ -123,10 +123,11 @@ App.defaultProps = {
 };
 
 export const mapStateToProps = (state) => ({
-  isLoggedIn: state.get('isUserLoggedIn'),
-  userEmail: state.getIn(['user', 'email']),
-  displayDrawer: state.get('isNotificationDrawerVisible'),
+  isLoggedIn: state.ui.get('isUserLoggedIn'),
+  userEmail: state.ui.getIn(['user', 'email']),
+  displayDrawer: state.ui.get('isNotificationDrawerVisible'),
 });
+
 
 const mapDispatchToProps = {
   displayNotificationDrawer,

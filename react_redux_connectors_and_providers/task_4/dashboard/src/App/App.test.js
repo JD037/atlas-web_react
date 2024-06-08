@@ -2,24 +2,28 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { mount } from 'enzyme';
-import { Map } from 'immutable';
+import { fromJS } from 'immutable';
 import App, { mapStateToProps } from './App';
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme from 'enzyme';
-import uiReducer from '../reducers/uiReducer';
+import rootReducer from '../reducers/rootReducer';
 import { act } from 'react-dom/test-utils';
 
 // Configure Enzyme with React 16 adapter
 Enzyme.configure({ adapter: new Adapter() });
 
-// Mock initial state with Immutable.Map
-const initialState = Map({
-  isUserLoggedIn: false,
-  isNotificationDrawerVisible: false,
+// Mock initial state with Immutable.fromJS
+const initialState = fromJS({
+  ui: {
+    isUserLoggedIn: false,
+    isNotificationDrawerVisible: false,
+  },
+  courses: {},
+  notifications: {},
 });
 
 const mountComponent = (state) => {
-  const store = createStore(uiReducer, state);
+  const store = createStore(rootReducer, state);
   return mount(
     <Provider store={store}>
       <App />
@@ -61,7 +65,7 @@ describe('App component', () => {
   });
 
   it('updates state correctly when logOut is called', () => {
-    wrapper = mountComponent(initialState.set('isUserLoggedIn', true));
+    wrapper = mountComponent(initialState.setIn(['ui', 'isUserLoggedIn'], true));
     act(() => {
       wrapper.find(App).children().instance().logOut();
     });
@@ -71,7 +75,7 @@ describe('App component', () => {
   });
 
   it('markNotificationAsRead works as intended', () => {
-    const notificationsState = initialState.set('listNotifications', [
+    const notificationsState = initialState.setIn(['ui', 'listNotifications'], [
       { id: 1, type: 'default', value: 'New course available' },
       { id: 2, type: 'urgent', value: 'New resume available' },
       { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
@@ -87,9 +91,11 @@ describe('App component', () => {
 
 describe('mapStateToProps', () => {
   it('should return the correct object when the state is provided', () => {
-    const state = Map({
-      isUserLoggedIn: true,
-      isNotificationDrawerVisible: true,
+    const state = fromJS({
+      ui: {
+        isUserLoggedIn: true,
+        isNotificationDrawerVisible: true,
+      },
     });
     const expectedProps = {
       isLoggedIn: true,
