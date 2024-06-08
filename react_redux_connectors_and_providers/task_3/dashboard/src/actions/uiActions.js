@@ -28,37 +28,46 @@ export const logout = () => ({
   type: LOGOUT,
 });
 
-export const loginSuccess = () => ({
+export const loginSuccess = (user) => ({
   type: LOGIN_SUCCESS,
+  user
 });
 
-export const loginFailure = () => ({
+export const loginFailure = (error) => ({
   type: LOGIN_FAILURE,
+  error
 });
 
 // Thunk action creator for async login
 export const loginRequest = (email, password) => {
   return async (dispatch) => {
     dispatch(login(email, password));
+    console.log('Login action dispatched:', { email, password });
 
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
+      const response = await fetch('http://localhost:3001/users', {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
+        }
       });
 
-      const data = await response.json();
+      const users = await response.json();
+      console.log('API response:', users);
 
-      if (response.ok) {
-        dispatch(loginSuccess(data));
+      const user = users.find(user => user.email === email && user.password === password);
+
+      if (user) {
+        dispatch(loginSuccess(user));
+        console.log('Login successful:', user);
       } else {
-        dispatch(loginFailure(data.error));
+        const error = 'Invalid email or password';
+        dispatch(loginFailure(error));
+        console.log('Login failed:', error);
       }
     } catch (error) {
       dispatch(loginFailure(error.message));
+      console.log('Login error:', error.message);
     }
   };
 };
