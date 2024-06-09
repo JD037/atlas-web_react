@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import App, { mapStateToProps } from './App';
@@ -22,8 +23,8 @@ const initialState = fromJS({
   notifications: {},
 });
 
-const mountComponent = (state) => {
-  const store = createStore(rootReducer, state);
+const mountComponent = (state = initialState) => {
+  const store = createStore(rootReducer, state, applyMiddleware(thunk));
   return mount(
     <Provider store={store}>
       <App />
@@ -94,11 +95,13 @@ describe('mapStateToProps', () => {
     const state = fromJS({
       ui: {
         isUserLoggedIn: true,
+        user: { email: 'test@example.com' },
         isNotificationDrawerVisible: true,
       },
     });
     const expectedProps = {
       isLoggedIn: true,
+      userEmail: 'test@example.com',
       displayDrawer: true,
     };
     expect(mapStateToProps(state)).toEqual(expectedProps);

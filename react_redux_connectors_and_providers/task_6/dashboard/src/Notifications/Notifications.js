@@ -1,7 +1,5 @@
 // src/Notifications/Notifications.js
 
-// src/Notifications/Notifications.js
-
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import NotificationItem from './NotificationItem';
