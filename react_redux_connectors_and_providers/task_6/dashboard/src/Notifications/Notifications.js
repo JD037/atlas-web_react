@@ -1,5 +1,7 @@
 // src/Notifications/Notifications.js
 
+// src/Notifications/Notifications.js
+
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import NotificationItem from './NotificationItem';
@@ -7,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchNotifications, markAsRead } from '../actions/notificationActionCreators';
 import WithLogging from '../HOC/WithLogging';
+import { getUnreadNotifications } from '../selectors/notificationSelector';
 import { Map } from 'immutable';
 
 const bounceKeyframes = {
@@ -108,7 +111,7 @@ class Notifications extends React.PureComponent {
               <NotificationItem value="No new notification for now" />
             ) : (
               <ul className={css(styles.ul)}>
-                {listNotifications.valueSeq().map((notification) => (
+                {listNotifications.map((notification) => (
                   <NotificationItem
                     key={notification.get('id')}
                     id={notification.get('id')}
@@ -146,7 +149,7 @@ Notifications.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  listNotifications: state.notifications.get('notifications'),
+  listNotifications: getUnreadNotifications(state),
 });
 
 const mapDispatchToProps = {

@@ -20,7 +20,7 @@ const notificationReducer = (state = initialState, action) => {
       const notifications = fromJS(action.data.entities.notifications);
       return state.set('notifications', notifications);
     case MARK_AS_READ:
-      return state.setIn(['notifications', String(action.index), 'isRead'], true);
+      return state.setIn(['notifications', String(action.index),'context', 'isRead'], true);
     case SET_TYPE_FILTER:
       return state.set('filter', action.filter);
     case SET_LOADING_STATE:

@@ -9,9 +9,9 @@ const notificationSchema = new schema.Entity('notifications', {
 });
 const notificationsSchema = [notificationSchema];
 
-export const markAsRead = (id) => ({
+export const markAsRead = (index) => ({
   type: MARK_AS_READ,
-  id,
+  index,
 });
 
 export const setNotificationFilter = (filter) => ({
